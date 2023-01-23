@@ -1,25 +1,25 @@
-let weather = {
-    paris: {
-      temp: 19.7,
-      humidity: 80
-    },
-    tokyo: {
-      temp: 17.3,
-      humidity: 50
-    },
-    lisbon: {
-      temp: 30.2,
-      humidity: 20
-    },
-    "san francisco": {
-      temp: 20.9,
-      humidity: 100
-    },
-    oslo: {
-      temp: -5,
-      humidity: 20
-    }
-  };
+// let weather = {
+//     paris: {
+//       temp: 19.7,
+//       humidity: 80
+//     },
+//     tokyo: {
+//       temp: 17.3,
+//       humidity: 50
+//     },
+//     lisbon: {
+//       temp: 30.2,
+//       humidity: 20
+//     },
+//     "san francisco": {
+//       temp: 20.9,
+//       humidity: 100
+//     },
+//     oslo: {
+//       temp: -5,
+//       humidity: 20
+//     }
+//   };
   //let city = prompt("Enter a city");
   //city = city?.toLowerCase();
   //if (weather[city]) {
@@ -62,15 +62,28 @@ let weather = {
   
   formatDate();
   
-  function search(event) {
+  function showWeather(response) {
+    document.querySelector("#city").innerHTML = response.data.name;
+    document.querySelector("#temp").innerHTML = Math.round(
+      response.data.main.temp
+    );
+  }
+  
+  function enter(event) {
     event.preventDefault();
-    let cityInput = document.querySelector("#city-input");
-    searchCity(cityInput.value);}
+    let city = document.querySelector("#city-input").value;
+    searchCity(city);
+  }
+  
   function searchCity(city) {
     let apiKey = "281450ec88936f4fa8ee9864682b49a0";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   
-    axios.get(apiUrl).then(showWeather);}
+    axios.get(apiUrl).then(showWeather);
+  }
+  
+  let handle = document.querySelector("#search-form");
+  handle.addEventListener("submit", enter);
   
   
   // function showCity(response) {
@@ -98,19 +111,20 @@ let weather = {
   // let tempElement = document.querySelector("#temp");
   // tempElement.innerHTML = defaultTemp;
   
-  function convert2F(event) {
-    event.preventDefault();
-    tempElement.innerHTML = Math.round(defaultTemp * 1.8 + 32);
-  }
+  // function convert2F(event) {
+  //   event.preventDefault();
+  //   tempElement.innerHTML = Math.round(defaultTemp * 1.8 + 32);
+  // }
   
-  function convert2C(event) {
-    event.preventDefault();
-    tempElement.innerHTML = defaultTemp;
-  }
+  // function convert2C(event) {
+  //   event.preventDefault();
+  //   tempElement.innerHTML = defaultTemp;
+  // }
   
-  let fahrLink = document.querySelector("#fLink");
-  fahrLink.addEventListener("click", convert2F);
+  // let fahrLink = document.querySelector("#fLink");
+  // fahrLink.addEventListener("click", convert2F);
   
-  let celsLink = document.querySelector("#cLink");
-  celsLink.addEventListener("click", convert2C);
+  // let celsLink = document.querySelector("#cLink");
+  // celsLink.addEventListener("click", convert2C);
+
   
